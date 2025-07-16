@@ -1,0 +1,7 @@
+services:
+  woodpecker-server:
+    image: ghcr.io/wgroeneveld/woodpecker-ascii-junit:main
+    environment:
+      - PLUGIN_PATH=/reports/**/*.xml
+    volumes:
+      - ./testreports:/reports

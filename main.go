@@ -54,7 +54,10 @@ func (p *Plugin) Execute(ctx context.Context) error {
 		return err
 	}
 
-	p.processJunitSuites(suites)
+	totalFailed := p.printTotalTable(suites)
+	if totalFailed > 0 {
+		p.printFailedDetails(suites)
+	}
 
 	return nil
 }
@@ -85,7 +88,7 @@ func (p *Plugin) pathToFiles(path string) ([]string, error) {
 	return files, nil
 }
 
-func (p *Plugin) processJunitSuites(suites []junit.Suite) {
+func (p *Plugin) printTotalTable(suites []junit.Suite) int {
 	passed := 0
 	failed := 0
 	errored := 0
@@ -113,6 +116,25 @@ func (p *Plugin) processJunitSuites(suites []junit.Suite) {
 	fmt.Printf("| %s | %s | %s | %s | %s | \n", pad(6, passed), pad(6, failed), pad(7, errored), pad(7, skipped), pad(5, total))
 	fmt.Println()
 	fmt.Printf("Total time: %s\n", totalTime.String())
+
+	return failed
+}
+
+func (p *Plugin) printFailedDetails(suites []junit.Suite) {
+	fmt.Println("\nFailed Test Details")
+	fmt.Println("-------------------")
+	for _, suite := range suites {
+		for _, test := range suite.Tests {
+			if test.Status == junit.StatusFailed {
+				fmt.Printf(" >> Test: %s#%s (%s) Failure: %s\n", test.Name, test.Classname, test.Duration.Round(1*time.Millisecond).String(), test.Message)
+
+				errText := test.Error.Error()
+				if strings.ToLower(test.Message) != strings.ToLower(errText) {
+					fmt.Println(errText)
+				}
+			}
+		}
+	}
 }
 
 func pad(max int, nr int) string {

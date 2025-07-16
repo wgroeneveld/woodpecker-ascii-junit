@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.SomeTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2025-07-16T09:13:20.637Z" hostname="localhost" time="1.311">
+    <properties/>
+    <testcase name="someTestName" classname="org.SomeTest" time="1.311">
+        <failure message="java.lang.AssertionError: this should be that." type="java.lang.AssertionError">java.lang.AssertionError: this should be that
+            at com.tngtech.archunit.lang.ArchRule$Factory$SimpleArchRule.verifyNoEmptyShouldIfEnabled(ArchRule.java:201)
+            at com.tngtech.archunit.lang.ArchRule$Factory$SimpleArchRule.evaluate(ArchRule.java:181)
+            at com.tngtech.archunit.lang.ArchRule$Assertions.check(ArchRule.java:84)
+            at com.tngtech.archunit.lang.ArchRule$Factory$SimpleArchRule.check(ArchRule.java:165)
+            at com.tngtech.archunit.lang.syntax.ObjectsShouldInternal.check(ObjectsShouldInternal.java:81)
+            at com.tngtech.archunit.junit.internal.ArchUnitTestDescriptor$ArchUnitRuleDescriptor.execute(ArchUnitTestDescriptor.java:168)
+            at com.tngtech.archunit.junit.internal.ArchUnitTestDescriptor$ArchUnitRuleDescriptor.execute(ArchUnitTestDescriptor.java:151)
+            at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+            at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+        </failure>
+    </testcase>
+    <system-out><![CDATA[11:13:20.645 [Test worker] INFO  c.tngtech.archunit.core.PluginLoadermdcPattern_IS_UNDEFINED - Detected Java version 21.0.5
+]]></system-out>
+    <system-err><![CDATA[]]></system-err>
+</testsuite>
