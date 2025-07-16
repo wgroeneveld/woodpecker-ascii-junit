@@ -15,6 +15,8 @@ If there are failing tests, details of those will be printed as well.
 If you are using Drone-CI, consider using [drone-junit](https://github.com/rohit-gohri/drone-junit/) instead 
 that has a nice Adaptive Card UI which is currently not supported by Woodpecker-CI.
 
+This plugin reads JUnit XML files in a `path` glob pattern. If you're running JS Jest tests, add [jest-junit](https://github.com/jest-community/jest-junit) as a reporter and it'll be integrated as well.
+
 ## Configuration
 
 See `docker-compose.yml` as an example:
