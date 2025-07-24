@@ -1,3 +1,14 @@
+---
+name: ASCII JUnit Test Report
+description:
+  A simple Woodpecker CI plugin that prints out JUnit summaries in ASCII.
+author: Wouter (@wgroeneveld)
+tags: [testing, java, junit]
+containerImage: ghcr.io/wgroeneveld/woodpecker-ascii-junit:main
+containerImageUrl: https://github.com/wgroeneveld/woodpecker-ascii-junit/pkgs/container/woodpecker-ascii-junit
+url: https://github.com/wgroeneveld/woodpecker-ascii-junit
+---
+
 # Woodpecker-ascii-junit
 
 A simple Woodpecker CI plugin that prints out JUnit summaries in ASCII:
