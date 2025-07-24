@@ -9,6 +9,7 @@ import (
 	"github.com/mattn/go-zglob"
 	"github.com/rs/zerolog/log"
 	"github.com/urfave/cli/v3"
+	"github.com/vinay03/chalk"
 	"os"
 	"strconv"
 	"strings"
@@ -100,33 +101,62 @@ func (p *Plugin) printTotalTable(suites []junit.Suite) int {
 		passed += suite.Totals.Passed
 		failed += suite.Totals.Failed
 		errored += suite.Totals.Error
-		total += suite.Totals.Skipped
-		passed += suite.Totals.Tests
 		skipped += suite.Totals.Skipped
+		total += suite.Totals.Tests
 		totalTime += suite.Totals.Duration
 	}
 
 	totalTime = totalTime.Round(1 * time.Millisecond)
 
-	fmt.Printf("\nJUnit Test Results: %d Test Suites Found\n", len(suites))
+	fmt.Printf("\nJUnit Test Results: ")
+	chalk.Bold().Printf("%d Test Suites", len(suites))
+	fmt.Printf(" Found\n")
 	fmt.Println("----------------------------------------")
 	fmt.Println()
-	fmt.Println("| Passed | Failed | Errored | Skipped | Total |")
-	fmt.Println("_______________________________________________")
-	fmt.Printf("| %s | %s | %s | %s | %s | \n", pad(6, passed), pad(6, failed), pad(7, errored), pad(7, skipped), pad(5, total))
+
+	fmt.Print("| ")
+	chalk.GreenLight().Print("Passed ✅")
+
+	fmt.Print(" | ")
+	chalk.RedLight().Print("Failed ❌")
+
+	fmt.Print(" | ")
+	chalk.RedLight().Print("Errored 🚫")
+
+	fmt.Print(" | ")
+	chalk.BlueLight().Print("Skipped ⏭️")
+	fmt.Println(" | Total 📈 |")
+	fmt.Println("_______________________________________________________________")
+
+	fmt.Print("| ")
+	chalk.GreenLight().Print(pad(9, passed))
+
+	fmt.Print(" | ")
+	chalk.RedLight().Print(pad(10, failed))
+
+	fmt.Print(" | ")
+	chalk.RedLight().Print(pad(10, errored))
+
+	fmt.Print(" | ")
+	chalk.BlueLight().Print(pad(10, skipped))
+
+	fmt.Printf(" | %s | \n", pad(8, total))
 	fmt.Println()
-	fmt.Printf("Total time: %s\n", totalTime.String())
+
+	fmt.Printf("⏱️ Total time: %s\n", totalTime.String())
 
 	return failed
 }
 
 func (p *Plugin) printFailedDetails(suites []junit.Suite) {
-	fmt.Println("\nFailed Test Details")
-	fmt.Println("-------------------")
+	fmt.Println("\n❌ Failed Test Details")
+	fmt.Println("----------------------")
 	for _, suite := range suites {
 		for _, test := range suite.Tests {
 			if test.Status == junit.StatusFailed {
-				fmt.Printf(" >> Test: %s#%s (%s) Failure: %s\n", test.Name, test.Classname, test.Duration.Round(1*time.Millisecond).String(), test.Message)
+				fmt.Printf("  🧪 Test ")
+				chalk.Underline().Printf("%s#%s", test.Name, test.Classname)
+				fmt.Printf(" (⏱️%s) Failure: %s\n", test.Duration.Round(1*time.Millisecond).String(), test.Message)
 
 				errText := test.Error.Error()
 				if strings.ToLower(test.Message) != strings.ToLower(errText) {
