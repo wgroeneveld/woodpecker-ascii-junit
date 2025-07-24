@@ -11,7 +11,7 @@ url: https://github.com/wgroeneveld/woodpecker-ascii-junit
 
 # Woodpecker-ascii-junit
 
-A simple Woodpecker CI plugin that prints out JUnit summaries in ASCII:
+A simple Woodpecker CI plugin used by [JobRunr](https://github.com/jobrunr/jobrunr) that prints out JUnit summaries in ASCII:
 
 ```
 
